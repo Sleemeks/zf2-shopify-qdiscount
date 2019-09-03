@@ -1,0 +1,105 @@
+<div class="page-header"><h1>Welcome to Quick Product Discount</h1></div>
+
+<?php if((isset($message)) && ($message == true)): ?>
+	<div class='alert alert-success' role='alert'>This app was successfully installed
+		<button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+			<span aria-hidden='true'>x</span>
+		</button>
+	</div>
+<?php endif; ?>
+
+<?php if(isset($this->allowed)): ?>
+	<div class="expired-message">
+		<div class="page-header">
+			<h3>Your subscription is expired!</h3>
+		</div>
+		<h4>To continue using Quick Product Discount Extension</h4>
+		<a class="btn btn-lg btn-primary" href="<?php echo $this->url('payment') ?>">Please get subscription</a>
+	</div>
+<?php else: ?>
+	<h4>Please select a range of discount.</h4>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Discount range</h3>
+		</div>
+		<div class="panel-body">
+			<label>
+				<span class="option-name">From:</span>
+				<select id="from" name="from" class="selectpicker">
+					<?php for($i=0; $i <= 100; $i++) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?> %</option>
+					<?php } ?>
+				</select>
+			</label>
+			<label>
+				<span class="option-name">To:</span>
+				<select id="to" name="to" class="selectpicker">
+					<?php for($i=0; $i <= 100; $i++) { ?>
+						<option value="<?php echo $i; ?>"><?php echo $i; ?> %</option>
+					<?php } ?>
+				</select>
+			</label>
+		</div>
+		<div class="panel-footer action-panel button-panel">
+			<button id="save" type="button" class="btn btn-primary">Save</button>
+		</div>
+	</div>
+<?php endif; ?>
+
+<script>
+$( document ).ready(function() {
+	$('select[name=from]').val(<?php echo $this->from; ?>);
+	$('select[name=to]').val(<?php echo $this->to; ?>);
+	$('.selectpicker').selectpicker('refresh');
+	
+	$( "#save" ).click(function() {
+		
+		$("#save").attr('disabled', 'disabled');
+		
+		function showAlertWindow(){
+			setTimeout(function() {
+				$( ".alert-success" ).animate({opacity: 0}, 600,
+				function() {
+					$(this).css({display:'none'});
+				});
+			}, 5000);
+		 
+			$(".close").click(function(){
+				$( ".alert-success" ).animate({opacity: 0}, 600,
+				function() {
+					$(this).css({display:'none'});
+				});  
+			});
+		}
+		var discount_option = [];
+		$.each( $(".selected"), function( i, val ){
+			if(i == 0) {
+				discount_option.from = $(val).attr("data-original-index");
+			} else {
+				discount_option.to = $(val).attr("data-original-index");
+			}
+		});
+		$.ajax({
+			type: 'POST',
+			url: "/",
+			data: {from: discount_option['from'], to: discount_option['to']},
+			success: function(data) {
+				$('body').append("<div class='alert-absolute'><div class='alert alert-success' role='alert'>Your discount was send successfully &nbsp;&nbsp;<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>x</span></button></div></div>");
+				showAlertWindow();
+				setTimeout(function(){
+					$("#save").removeAttr('disabled');
+				}, 1000);
+			},
+			error:  function(xhr, str){
+				alert('Возникла ошибка: ' + xhr.responseCode);
+			}
+		});
+	});
+});
+$(".close").click(function(){
+	$( ".alert-success" ).animate({ opacity: 0}, 600,
+	function() {
+		$(this).css({display:'none'});
+	});
+});
+</script>

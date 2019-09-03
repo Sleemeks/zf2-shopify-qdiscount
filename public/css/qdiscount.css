@@ -1,0 +1,9 @@
+.qdiscount-loader {
+	display: none;
+	background-image: url(/img/loader.gif);
+	background-repeat: no-repeat;
+}
+
+.qdiscount-form #qdiscount-cross-out {
+	text-decoration: line-through;
+}

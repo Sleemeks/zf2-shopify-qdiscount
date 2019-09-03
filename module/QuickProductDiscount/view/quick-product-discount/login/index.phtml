@@ -1,0 +1,13 @@
+<div class="login">
+	<div class="page-header">
+		<h1>Login</h1>
+		<p>Enter your shopify store's address to manage your app</p>
+	</div>
+	<form action="<?php echo $this->url('install'); ?>" method="post">
+		<label>
+			<input type="text" name="login" placeholder="your-store">
+			<span>.myshopify.com</span>
+		</label>
+		<button type="submit" id="login" class="btn btn-primary">Login</button>
+	</form>
+</div>

@@ -1,0 +1,55 @@
+<div class="page-header">
+	<h1>Quick Product Discount Get Started Manual</h1>
+</div>
+<h3>Insert Button In  Your Cart Page</h3>
+<pre class="code">
+&lt;button type=&quot;button&quot; id=&quot;quick-product-discount&quot; class=&quot;btn&quot; style=&quot;display:none;&quot;&gt&lt;span&gtGet Discount&lt;/span&gt&lt;/button&gt
+&lt;div class=&quot;qdiscount-loader&quot; style=&quot;display: none&quot;&gt&amp;nbsp;&lt;/div&gt
+</pre>
+<p>&nbsp;</p>
+<p>Copy the code from above and go to 
+	<?php if(isset($domain)) : ?>
+		<a href="<?php echo "https://".$domain."/admin/themes" ?>" target="_blank"><strong><?php echo "http://".$domain."/admin/themes" ?></strong></a>
+	<?php else: ?>
+		<strong>http://your-store.myshopify.com/admin -> Online Store -> Themes</strong>
+	<?php endif; ?>
+	<strong> -> "Edit HTML/CSS" -> Templates/Snippets -> open {product.liquid}</strong> and past it where you want to display <strong>"Get Discount"</strong> button.
+</p>
+<p>Optimal position of the <strong>"Get Discount"</strong> button is near <strong>"Add to cart"</strong> button.</p>
+<p>&nbsp;</p>
+<div class="screenshot">
+	<img src="/img/qdiscount-edit.jpg">
+	<p>&nbsp;</p>
+	<img src="/img/qdiscount-past-button.jpg">
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>You will see your <strong>"Get Discount"</strong> button at the <strong>"Add to cart"</strong> button.</p>
+	<img src="/img/qdiscount-product-page.jpg">
+	<p>&nbsp;</p>
+	<p>When you click on <strong>"Get Discount"</strong> button you will get a new price.</p>
+	<img src="/img/qdiscount-product-with-discount.jpg">
+	<p>&nbsp;</p>
+	
+	<p>If you want to add some styles to your old price to make it looks like on screenshot,
+		<p>&nbsp;</p>
+		<img src="/img/qdiscount-price-customize.jpg">
+		<p>&nbsp;</p>
+		you should go to
+		<?php if(isset($domain)) : ?>
+			<a href="<?php echo "https://".$domain."/admin/settings/general" ?>" target="_blank"><strong><?php echo "http://".$domain."/admin/settings/general" ?></strong></a>
+		<?php else: ?>
+			<strong>http://your-store.myshopify.com/admin/settings/general</strong>
+		<?php endif; ?>
+		<strong>-> Standards & formats -> Currency (change formatting) -> HTML without currency.</strong>
+		There you will see your price format, for example this -> <strong>${{amount}}</strong>.
+		You should wrap it between <pre class="code no-overflow">&lt;span id='qdiscount-cross-out'&gt;</pre> and <pre class="code no-overflow">&lt;/span&gt;</pre><br>Finally it should look like that
+		<pre class="code no-overflow">&lt;span id='qdiscount-cross-out'&gt;${{amount}}&lt;/span&gt;</pre> and save it.
+		<p>&nbsp;</p>
+		<img src="/img/qdiscount-currency.jpg">
+		<p>&nbsp;</p>
+		<p>Thanks for reading.</p>
+	</p>
+</div>
+
+
+
